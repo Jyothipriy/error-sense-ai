@@ -7,10 +7,24 @@ function App() {
   const [result, setResult] = useState(null);
   const [type, setType] = useState("javascript");
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const fetchWithRetry = async (url, options, retries = 2) => {
+    try {
+      return await fetch(url, options);
+    } catch (err) {
+      if (retries > 0) {
+        return fetchWithRetry(url, options, retries - 1);
+      }
+      throw err;
+    }
+  };
 
 const explainError = async () => {
+  setLoading(true); // ✅ start loading
+
   try {
-    const response = await fetch("http://127.0.0.1:7000/explain-error", {
+    const response = await fetchWithRetry("http://127.0.0.1:7000/explain-error", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -47,6 +61,18 @@ const explainError = async () => {
 
   } catch (err) {
     console.error("FETCH ERROR:", err);
+
+    // ✅ IMPORTANT: show error in UI
+    setResult({
+      explanation: "⚠️ Failed to connect to AI",
+      rootCause: "Network or server issue",
+      fix: "Check backend or try again",
+      code: "",
+      bestPractices: ""
+    });
+
+  } finally {
+    setLoading(false); // ✅ stop loading ALWAYS
   }
 };
 
@@ -89,7 +115,7 @@ const explainError = async () => {
   {/* Button */}
 <div className="button-group">
   <button onClick={explainError} className="btn primary">
-    🔍 Analyze Error
+   {loading ? "Analyzing..." : "🔍 Analyze Error"}
   </button>
 
   <button 

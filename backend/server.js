@@ -64,7 +64,7 @@ Return ONLY JSON:
       },
       {
         headers: {
-          Authorization: "Bearer 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",
+          Authorization: "Bearer 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",
           "Content-Type": "application/json",
           "HTTP-Referer": "http://localhost:3000",
           "X-Title": "ErrorSense AI"
@@ -77,9 +77,12 @@ Return ONLY JSON:
     res.json({ result: aiText });
 
   } catch (err) {
-    console.error("ERROR:", err.response?.data || err.message);
-    res.json({ result: "AI failed" });
-  }
+  console.error("ERROR:", err.response?.data || err.message);
+
+  res.json({
+    result: "⚠️ AI is temporarily unavailable. Please try again."
+  });
+}
 });
 
 app.listen(7000, "127.0.0.1", () => {
