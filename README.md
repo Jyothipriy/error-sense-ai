@@ -1,17 +1,17 @@
-🚀 ErrorSense AI
+# 🚀 ErrorSense AI
 
 An intelligent AI-powered debugging assistant that helps developers understand and fix errors instantly.
 
-------------------------------------------------------------------------------------------------------------------
+---
 
-💡 Problem
+## 💡 Problem
 
 Developers often struggle to understand error messages — especially beginners.
 Errors are often cryptic, time-consuming, and slow down development.
 
-------------------------------------------------------------------------------------------------------------------
+---
 
-✅ Solution
+## ✅ Solution
 
 ErrorSense AI analyzes both **code + error messages** and provides:
 
@@ -22,17 +22,17 @@ ErrorSense AI analyzes both **code + error messages** and provides:
 * 🎯 Confidence level
 * 🤖 Automatic error type detection
 
-------------------------------------------------------------------------------------------------------------------
+---
 
-🛠 Tech Stack
+## 🛠 Tech Stack
 
 * ⚛️ React (Frontend)
 * 🟢 Node.js + Express (Backend)
 * 🤖 OpenRouter API (LLM)
 
-------------------------------------------------------------------------------------------------------------------
+---
 
-🚀 Features
+## 🚀 Features
 
 * AI-powered debugging
 * Structured responses (not raw AI text)
@@ -40,47 +40,51 @@ ErrorSense AI analyzes both **code + error messages** and provides:
 * Copy fixed code instantly
 * Smart error detection
 
-------------------------------------------------------------------------------------------------------------------
+---
 
-🎥 Demo
+## 🎥 Demo
 
 👉 [Watch Demo Video](ADD_YOUR_VIDEO_LINK_HERE)
 
-------------------------------------------------------------------------------------------------------------------
+---
 
-📦 How to Run
+## 📦 How to Run
 
-Backend
+### Backend
 
-cd backend 
-npm install 
+```bash
+cd backend
+npm install
 node server.js
+```
 
-Frontend
+### Frontend
 
-cd frontend 
-npm install 
+```bash
+cd frontend
+npm install
 npm start
+```
 
-------------------------------------------------------------------------------------------------------------------
+---
 
-🌍 Impact
+## 🌍 Impact
 
 * Helps beginners learn debugging faster
 * Reduces time spent understanding errors
 * Improves developer productivity
 
-------------------------------------------------------------------------------------------------------------------
+---
 
-🔮 Future Improvements
+## 🔮 Future Improvements
 
 * Multi-language support (Python, Java)
 * VS Code extension
 * Real-time error detection
 * Code editor integration
 
-------------------------------------------------------------------------------------------------------------------
+---
 
-👩‍💻 Author
+## 👩‍💻 Author
 
-Jyothi Bendalam
+**Jyothi Bendalam**
