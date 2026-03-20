@@ -45,6 +45,10 @@ ErrorSense AI analyzes both **code + error messages** and provides:
 ## 🎥 Demo
 
 👉 [Watch Demo Video](https://youtu.be/xzC16ikx9zI)
+This demo shows how ErrorSense AI:
+- Analyzes real error messages
+- Explains them in simple language
+- Suggests fixes instantly
 
 ---
 
