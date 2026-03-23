@@ -21,58 +21,46 @@ function App() {
   };
 
 const explainError = async () => {
-  setLoading(true); // ✅ start loading
+  setLoading(true);
 
   try {
-    const response = await fetchWithRetry("http://127.0.0.1:7000/explain-error", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ code, error })
-    });
+    const response = await fetchWithRetry(
+      "http://localhost:8000/explain-error",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ code, error, type })
+      }
+    );
 
     const data = await response.json();
 
     console.log("RAW RESPONSE:", data);
+const text = data.result || "";
 
-    // ✅ SAFE PARSE FIX
-    try {
-      const cleanText = data.result
-        ?.replace(/```json/g, "")
-        ?.replace(/```/g, "")
-        ?.trim();
+const getSection = (label) => {
+  const regex = new RegExp(`${label}[:\\n]+([\\s\\S]*?)(?=\\n[A-Z]|$)`, "i");
+  const match = text.match(regex);
+  return match ? match[1].trim() : "";
+};
 
-      const parsed = JSON.parse(cleanText);
-      setResult(parsed);
+const codeMatch = text.match(/```(?:javascript)?([\s\S]*?)```/i);
 
-    } catch (parseErr) {
-      console.error("PARSE ERROR:", parseErr);
-
-      // fallback UI (VERY IMPORTANT)
-      setResult({
-        explanation: data.result || "AI failed",
-        rootCause: "Could not parse response",
-        fix: "Try again",
-        code: "",
-        bestPractices: ""
-      });
-    }
-
-  } catch (err) {
-    console.error("FETCH ERROR:", err);
-
-    // ✅ IMPORTANT: show error in UI
-    setResult({
-      explanation: "⚠️ Failed to connect to AI",
-      rootCause: "Network or server issue",
-      fix: "Check backend or try again",
-      code: "",
-      bestPractices: ""
-    });
+setResult({
+  explanation: getSection("Explanation") || text,
+  rootCause: getSection("Root Cause"),
+  fix: getSection("Fix"),
+  code: codeMatch ? codeMatch[1].trim() : "",
+  bestPractices: getSection("Best Practices"),
+  commonMistake: getSection("Common Mistake"),
+  confidence: getSection("Confidence"),
+  detectedType: type
+});
 
   } finally {
-    setLoading(false); // ✅ stop loading ALWAYS
+    setLoading(false);
   }
 };
 
